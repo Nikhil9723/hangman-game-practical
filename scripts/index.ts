@@ -19,8 +19,6 @@ class HangMan {
         console.log(suggestionBox);
         const blanks = document.querySelector(".hangman__blanks")
         console.log(blanks);
-        // const keyboard = document.querySelector(".hangman__keyboard");
-        // console.log(keyboard);
         console.log(gameWords);
         const StartBtn = document.querySelector("#start-btn");
         console.log(StartBtn);
@@ -44,21 +42,6 @@ class HangMan {
     }
 
     startGame() {   
-        // const MaxLives = 6;
-        // let gameData = loadGame();
-        // if(gameData) {
-        //     this.gameState = gameData;
-        // }
-        // else {
-        //     let words = this.getRandomWords();
-        //     this.gameState = {
-        //         words: words.word,
-        //         clue: words.clue,
-        //         guessLetter: [],
-        //         lives: MaxLives,
-        //     }
-        // }
-
         this.displayWords(this.gameState);
         let words = this.gameState.words;
         this.handellGuess(this.gameState);
@@ -87,18 +70,17 @@ class HangMan {
                 this.checkWin();
             }
             else { 
-                alert("sorry your all lives is over");
                 this.restart();
+                alert("sorry your all lives is over");
                 // this.initialGame()   
             }
         }
-
-        // this.handellGuess(gameState);
     }
 
     checkWin() {
         if(this.gameState.words.split("").every(letter => this.gameState.guessLetter.includes(letter))) {
-            alert("you won the game")
+            this.restart();
+            alert("you won the game");
         }
     }
 
@@ -111,6 +93,7 @@ class HangMan {
             guessLetter: [],
             lives: 6,
         }
+        saveGame(this.gameState);
         this.initialGame();
     }
 
@@ -123,8 +106,6 @@ class HangMan {
                 let letter = e.target
                 if(letter instanceof HTMLButtonElement) {
                     let letterGuess = letter.value;
-                    // console.log(guessLetter);
-                    // console.log(gameState, words);
                     if(!(this.gameState.guessLetter.includes(letterGuess.toLowerCase()))) {
                         this.gameState.guessLetter.push(letterGuess.toLowerCase());
                         console.log(gameState.guessLetter, "hello");
@@ -148,8 +129,6 @@ const saveData = loadGame();
 console.log(saveData, "Hii");
 
 function getRandomWords() {
-    // let word = gameWords.map((item) => item.word);
-    // console.log(word);
     return gameWords[Math.floor(Math.random()*gameWords.length)];
 }
 
